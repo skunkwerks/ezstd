@@ -54,6 +54,12 @@ BuildLibrary()
 {
     case $OS in
         Linux)
+            export MAKE=make
+            export CFLAGS="-fPIC"
+            export CXXFLAGS="-fPIC"
+            ;;
+        FreeBSD)
+            export MAKE=gmake
             export CFLAGS="-fPIC"
             export CXXFLAGS="-fPIC"
             ;;
@@ -61,7 +67,7 @@ BuildLibrary()
             ;;
     esac
 
-    fail_check make -j $CPUS
+    fail_check $MAKE -j $CPUS
     rm -rf lib/*.so
     rm -rf lib/*.so.*
     rm -rf lib/*.dylib
